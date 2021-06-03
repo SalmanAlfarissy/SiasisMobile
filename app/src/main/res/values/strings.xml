@@ -12,4 +12,13 @@
     <string name="menu_slideshow">Slideshow</string>
     <string name="splash_title">Sistem Akademik Siswa</string>
     <string name="casual">casual</string>
+    <string name="biodata">Biodata</string>
+    <string name="mata_pelajaran">Mata Pelajaran</string>
+    <string name="pembayaran_spp">Pembayaran SPP</string>
+    <string name="raport">Raport</string>
+    <string name="profil_sekolah">Profil Sekolah</string>
+    <string name="data_alumni">Data Alumni</string>
+    <string name="tentang">Tentang</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

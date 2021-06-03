@@ -10,16 +10,39 @@
         android:name="com.pnp.siasismobile.ui.home.HomeFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" />
-
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.pnp.siasismobile.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
-
+        android:id="@+id/nav_bio"
+        android:name="com.pnp.siasismobile.ui.biodata.BiodataFragment"
+        android:label="@string/biodata"
+        tools:layout="@layout/fragment_biodata" />
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.pnp.siasismobile.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:id="@+id/nav_jadwal"
+        android:name="com.pnp.siasismobile.ui.jadwal.JadwalFragment"
+        android:label="@string/mata_pelajaran"
+        tools:layout="@layout/fragment_jadwal" />
+    <fragment
+        android:id="@+id/nav_spp"
+        android:name="com.pnp.siasismobile.ui.spp.SppFragment"
+        android:label="@string/pembayaran_spp"
+        tools:layout="@layout/fragment_spp" />
+    <fragment
+        android:id="@+id/nav_raport"
+        android:name="com.pnp.siasismobile.ui.raport.RaportFragment"
+        android:label="@string/raport"
+        tools:layout="@layout/fragment_raport" />
+    <fragment
+        android:id="@+id/nav_sekolah"
+        android:name="com.pnp.siasismobile.ui.sekolah.SekolahFragment"
+        android:label="@string/profil_sekolah"
+        tools:layout="@layout/fragment_sekolah" />
+    <fragment
+        android:id="@+id/nav_alumni"
+        android:name="com.pnp.siasismobile.ui.alumni.AlumniFragment"
+        android:label="@string/data_alumni"
+        tools:layout="@layout/fragment_alumni" />
+    <fragment
+        android:id="@+id/nav_about"
+        android:name="com.pnp.siasismobile.ui.about.AboutFragment"
+        android:label="@string/tentang"
+        tools:layout="@layout/fragment_about" />
 </navigation>
