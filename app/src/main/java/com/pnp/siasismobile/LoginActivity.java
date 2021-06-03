@@ -24,8 +24,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class LoginActivity extends AppCompatActivity {
     final String URL_SIGNIN = "http://192.168.56.1/adm_siasis/backend/login_siswa.php";
@@ -105,7 +110,9 @@ public class LoginActivity extends AppCompatActivity {
 
                 idsiswa = txtuserid.getText().toString();
                 passwd = txtpasswd.getText().toString();
-                if (idsiswa.equals(user)&&passwd.equals(pass)){
+                String encrypt = md5Java(passwd);
+
+                if (idsiswa.equals(user)&&encrypt.equals(pass)){
                     Intent intenmenu = new Intent(LoginActivity.this,MainActivity.class);
 //                    intenmenu.putExtra("name",list_data.get(0).get("nama"));
 //                    intenmenu.putExtra("iduser",list_data.get(0).get("id"));
@@ -126,6 +133,28 @@ public class LoginActivity extends AppCompatActivity {
     private void ClearText() {
         txtuserid.setText("");
         txtpasswd.setText("");
+    }
+
+    public static String md5Java(String message) {
+        String digest = null;
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            byte[] hash = md.digest(message.getBytes("UTF-8"));
+            //merubah byte array ke dalam String Hexadecimal
+            StringBuilder sb = new StringBuilder(2*hash.length);
+            for(byte b : hash)
+            {
+                sb.append(String.format("%02x", b&0xff));
+            }
+            digest = sb.toString();
+        } catch (UnsupportedEncodingException ex)
+        {
+            Logger.getLogger(MainActivity.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NoSuchAlgorithmException ex)
+        {
+            Logger.getLogger(MainActivity.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return digest;
     }
 
 }
