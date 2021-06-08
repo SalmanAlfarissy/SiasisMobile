@@ -1,24 +1,30 @@
 package com.pnp.siasismobile;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.view.Menu;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.navigation.NavigationView;
-
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+
+import com.bumptech.glide.Glide;
+import com.google.android.material.navigation.NavigationView;
+import com.mikepenz.materialdrawer.Drawer;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +32,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+
+
+
 //        FloatingActionButton fab = findViewById(R.id.fab);
 //        fab.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -34,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
 //                        .setAction("Action", null).show();
 //            }
 //        });
+
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
@@ -45,6 +57,32 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+//        menggganti tampilan header navigation drawer
+        View hView =  navigationView.inflateHeaderView(R.layout.nav_header_main);
+        CircleImageView foto = (CircleImageView)hView.findViewById(R.id.foto);
+        TextView txtnama = (TextView)hView.findViewById(R.id.txtnama);
+        TextView txtnis = (TextView)hView.findViewById(R.id.txtnis);
+
+        Intent intentlogin = getIntent();
+        txtnama.setText((String)intentlogin.getSerializableExtra("nama_sis"));
+        txtnis.setText((String)intentlogin.getSerializableExtra("nis"));
+        String txtconten = (String)intentlogin.getSerializableExtra("foto_sis");
+
+        String urlGambar = "http://192.168.56.1/adm_siasis/admin/siswa/"+txtconten;
+        if (txtconten.equals("")){
+            foto.setImageResource(R.drawable.user_account);
+        }else {
+            Glide.with(MainActivity.this)
+                    .load(urlGambar)
+                    .into(foto);
+        }
+
+
+
+
+
+
     }
 
     @Override

@@ -65,7 +65,7 @@
                         android:drawableLeft="@drawable/user_account"
                         android:drawablePadding="20dp"
                         android:hint="User ID"
-                        android:inputType="textEmailAddress" />
+                        />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
