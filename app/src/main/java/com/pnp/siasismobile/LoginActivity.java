@@ -34,6 +34,7 @@ import java.util.logging.Logger;
 
 public class LoginActivity extends AppCompatActivity {
     final String URL_SIGNIN = "http://192.168.56.1/adm_siasis/backend/login_siswa.php";
+    final String URL_JADWAL = "http://192.168.56.1/adm_siasis/backend/jadwal_siswa.php";
     EditText txtuserid;
     EditText txtpasswd;
     CheckBox psshow;
@@ -41,11 +42,11 @@ public class LoginActivity extends AppCompatActivity {
     CardView btnLogin;
     String idsiswa,passwd,encrypt;
     String user,pass;
-    int cek;
-    RequestQueue requestQueue;
-    private StringRequest stringRequest;
+    int cek,cek2;
+    RequestQueue requestQueue,requestQueue2;
+    private StringRequest stringRequest,stringRequest2;
 
-    ArrayList<HashMap<String,String>> list_data;
+    ArrayList<HashMap<String,String>> list_data,list_data2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,8 +61,10 @@ public class LoginActivity extends AppCompatActivity {
 
         btnLogin =findViewById(R.id.btnlogin);
         requestQueue = Volley.newRequestQueue(LoginActivity.this);
+        requestQueue2 = Volley.newRequestQueue(LoginActivity.this);
 
         list_data = new ArrayList<HashMap<String, String>>();
+        list_data2 = new ArrayList<HashMap<String, String>>();
 
         psshow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,6 +77,45 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        login();
+        jadwal();
+
+    }
+    private void jadwal() {
+        stringRequest2 = new StringRequest(Request.Method.GET, URL_JADWAL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONArray jsonArray = jsonObject.getJSONArray("kelas");
+                    for (int a = 0; a < jsonArray.length(); a++) {
+                        JSONObject json = jsonArray.getJSONObject(a);
+                        HashMap<String, String> map = new HashMap<String, String>();
+                        map.put("nama_sis", json.getString("nama_sis"));
+                        map.put("nis", json.getString("nis"));
+                        map.put("kelas", json.getString("kelas"));
+                        map.put("semester", json.getString("semester"));
+                        map.put("jadwal", json.getString("jadwal"));
+                        list_data2.add(map);
+                    }
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(LoginActivity.this,error.getMessage(),Toast.LENGTH_SHORT).show();
+
+            }
+        });
+        requestQueue2.add(stringRequest2);
+    }
+
+    private void login() {
         stringRequest = new StringRequest(Request.Method.GET, URL_SIGNIN, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -99,6 +141,7 @@ public class LoginActivity extends AppCompatActivity {
                         map.put("alamat", json.getString("alamat"));
                         map.put("no_hp", json.getString("no_hp"));
                         map.put("kelas", json.getString("kelas"));
+                        map.put("semester", json.getString("semester"));
                         map.put("tahun_diterima", json.getString("tahun_diterima"));
                         map.put("semester_diterima", json.getString("semester_diterima"));
                         map.put("nama_sekolah_asal", json.getString("nama_sekolah_asal"));
@@ -119,8 +162,6 @@ public class LoginActivity extends AppCompatActivity {
                         map.put("cover", json.getString("cover"));
                         list_data.add(map);
                     }
-                    user = list_data.get(0).get("nis");
-                    pass = list_data.get(0).get("password");
 
 
                 } catch (JSONException e) {
@@ -140,47 +181,59 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 idsiswa = txtuserid.getText().toString();
                 passwd = txtpasswd.getText().toString();
                 encrypt = md5Java(passwd);
 
+                for (int i = 0; i < list_data.size(); i++) {
+                    user = list_data.get(i).get("nis");
+                    if (idsiswa.equals(user)) {
+                        cek = i;
+
+                    }
+                }
+                user = list_data.get(cek).get("nis");
+                pass = list_data.get(cek).get("password");
+
+
                 if (idsiswa.equals(user)&&encrypt.equals(pass)){
                     Intent intenmenu = new Intent(LoginActivity.this,MainActivity.class);
-                    intenmenu.putExtra("id_siswa",list_data.get(0).get("id_siswa"));
-                    intenmenu.putExtra("id_guru",list_data.get(0).get("id_guru"));
-                    intenmenu.putExtra("id_adm",list_data.get(0).get("id_adm"));
-                    intenmenu.putExtra("password",list_data.get(0).get("password"));
-                    intenmenu.putExtra("nisn",list_data.get(0).get("nisn"));
-                    intenmenu.putExtra("nis",list_data.get(0).get("nis"));
-                    intenmenu.putExtra("nama_sis",list_data.get(0).get("nama_sis"));
-                    intenmenu.putExtra("foto_sis",list_data.get(0).get("foto_sis"));
-                    intenmenu.putExtra("ttl",list_data.get(0).get("ttl"));
-                    intenmenu.putExtra("jenis_kelamin",list_data.get(0).get("jenis_kelamin"));
-                    intenmenu.putExtra("agama",list_data.get(0).get("agama"));
-                    intenmenu.putExtra("status_keluarga",list_data.get(0).get("status_keluarga"));
-                    intenmenu.putExtra("anak_ke",list_data.get(0).get("anak_ke"));
-                    intenmenu.putExtra("alamat",list_data.get(0).get("alamat"));
-                    intenmenu.putExtra("no_hp",list_data.get(0).get("no_hp"));
-                    intenmenu.putExtra("kelas",list_data.get(0).get("kelas"));
-                    intenmenu.putExtra("tahun_diterima",list_data.get(0).get("tahun_diterima"));
-                    intenmenu.putExtra("semester_diterima",list_data.get(0).get("semester_diterima"));
-                    intenmenu.putExtra("nama_sekolah_asal",list_data.get(0).get("nama_sekolah_asal"));
-                    intenmenu.putExtra("alamat_sekolah_asal",list_data.get(0).get("alamat_sekolah_asal"));
-                    intenmenu.putExtra("tahun_ijazah_sebelumnya",list_data.get(0).get("tahun_ijazah_sebelumnya"));
-                    intenmenu.putExtra("nomor_ijazah_sebelumnya",list_data.get(0).get("nomor_ijazah_sebelumnya"));
-                    intenmenu.putExtra("tahun_skhun_sebelumya",list_data.get(0).get("tahun_skhun_sebelumya"));
-                    intenmenu.putExtra("nomor_skhun_sebelumnya",list_data.get(0).get("nomor_skhun_sebelumnya"));
-                    intenmenu.putExtra("nama_ayah",list_data.get(0).get("nama_ayah"));
-                    intenmenu.putExtra("nama_ibu",list_data.get(0).get("nama_ibu"));
-                    intenmenu.putExtra("alamat_ortu",list_data.get(0).get("alamat_ortu"));
-                    intenmenu.putExtra("pekerjaan_ayah",list_data.get(0).get("pekerjaan_ayah"));
-                    intenmenu.putExtra("pekerjaan_ibu",list_data.get(0).get("pekerjaan_ibu"));
-                    intenmenu.putExtra("nama_wali",list_data.get(0).get("nama_wali"));
-                    intenmenu.putExtra("alamat_wali",list_data.get(0).get("alamat_wali"));
-                    intenmenu.putExtra("no_hp_wali",list_data.get(0).get("no_hp_wali"));
-                    intenmenu.putExtra("pekerjaan_wali",list_data.get(0).get("pekerjaan_wali"));
-                    intenmenu.putExtra("cover",list_data.get(0).get("cover"));
+                    intenmenu.putExtra("id_siswa",list_data.get(cek).get("id_siswa"));
+                    intenmenu.putExtra("id_guru",list_data.get(cek).get("id_guru"));
+                    intenmenu.putExtra("id_adm",list_data.get(cek).get("id_adm"));
+                    intenmenu.putExtra("password",list_data.get(cek).get("password"));
+                    intenmenu.putExtra("nisn",list_data.get(cek).get("nisn"));
+                    intenmenu.putExtra("nis",list_data.get(cek).get("nis"));
+                    intenmenu.putExtra("nama_sis",list_data.get(cek).get("nama_sis"));
+                    intenmenu.putExtra("foto_sis",list_data.get(cek).get("foto_sis"));
+                    intenmenu.putExtra("ttl",list_data.get(cek).get("ttl"));
+                    intenmenu.putExtra("jenis_kelamin",list_data.get(cek).get("jenis_kelamin"));
+                    intenmenu.putExtra("agama",list_data.get(cek).get("agama"));
+                    intenmenu.putExtra("status_keluarga",list_data.get(cek).get("status_keluarga"));
+                    intenmenu.putExtra("anak_ke",list_data.get(cek).get("anak_ke"));
+                    intenmenu.putExtra("alamat",list_data.get(cek).get("alamat"));
+                    intenmenu.putExtra("no_hp",list_data.get(cek).get("no_hp"));
+                    intenmenu.putExtra("kelas",list_data.get(cek).get("kelas"));
+                    intenmenu.putExtra("semester",list_data.get(cek).get("semester"));
+                    intenmenu.putExtra("tahun_diterima",list_data.get(cek).get("tahun_diterima"));
+                    intenmenu.putExtra("semester_diterima",list_data.get(cek).get("semester_diterima"));
+                    intenmenu.putExtra("nama_sekolah_asal",list_data.get(cek).get("nama_sekolah_asal"));
+                    intenmenu.putExtra("alamat_sekolah_asal",list_data.get(cek).get("alamat_sekolah_asal"));
+                    intenmenu.putExtra("tahun_ijazah_sebelumnya",list_data.get(cek).get("tahun_ijazah_sebelumnya"));
+                    intenmenu.putExtra("nomor_ijazah_sebelumnya",list_data.get(cek).get("nomor_ijazah_sebelumnya"));
+                    intenmenu.putExtra("tahun_skhun_sebelumya",list_data.get(cek).get("tahun_skhun_sebelumya"));
+                    intenmenu.putExtra("nomor_skhun_sebelumnya",list_data.get(cek).get("nomor_skhun_sebelumnya"));
+                    intenmenu.putExtra("nama_ayah",list_data.get(cek).get("nama_ayah"));
+                    intenmenu.putExtra("nama_ibu",list_data.get(cek).get("nama_ibu"));
+                    intenmenu.putExtra("alamat_ortu",list_data.get(cek).get("alamat_ortu"));
+                    intenmenu.putExtra("pekerjaan_ayah",list_data.get(cek).get("pekerjaan_ayah"));
+                    intenmenu.putExtra("pekerjaan_ibu",list_data.get(cek).get("pekerjaan_ibu"));
+                    intenmenu.putExtra("nama_wali",list_data.get(cek).get("nama_wali"));
+                    intenmenu.putExtra("alamat_wali",list_data.get(cek).get("alamat_wali"));
+                    intenmenu.putExtra("no_hp_wali",list_data.get(cek).get("no_hp_wali"));
+                    intenmenu.putExtra("pekerjaan_wali",list_data.get(cek).get("pekerjaan_wali"));
+                    intenmenu.putExtra("cover",list_data.get(cek).get("cover"));
+                    intenmenu.putExtra("jadwal",list_data2.get(cek2).get("jadwal"));
 
 
                     Toast.makeText(LoginActivity.this,"Login Sukses",Toast.LENGTH_LONG).show();
@@ -190,7 +243,6 @@ public class LoginActivity extends AppCompatActivity {
                 }else{
                     Toast.makeText(LoginActivity.this,"Login Gagal\n Please Try Again!!",Toast.LENGTH_LONG).show();
                 }
-
 
             }
         });

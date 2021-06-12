@@ -13,7 +13,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="20dp"
             android:id="@+id/txtjudul"
             android:fontFamily="casual"
             android:textAlignment="center"
@@ -49,7 +49,7 @@
             android:gravity="center">
             <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:scrollbars="vertical|horizontal">
                 <androidx.cardview.widget.CardView
@@ -59,7 +59,7 @@
                     android:layout_gravity="center">
                     <ImageView
                         android:layout_width="wrap_content"
-                        android:layout_height="250dp"
+                        android:layout_height="350dp"
                         android:layout_gravity="center"
                         android:padding="5dp"
                         android:id="@+id/imgjadwal"

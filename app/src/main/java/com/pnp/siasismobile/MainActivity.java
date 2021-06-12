@@ -18,6 +18,7 @@ import androidx.navigation.ui.NavigationUI;
 import com.bumptech.glide.Glide;
 import com.google.android.material.navigation.NavigationView;
 import com.mikepenz.materialdrawer.Drawer;
+import com.pnp.siasismobile.ui.jadwal.JadwalFragment;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -78,8 +79,10 @@ public class MainActivity extends AppCompatActivity {
                     .into(foto);
         }
 
-
-
+//        send data to fragment
+//        String nis = txtnis.getText().toString();
+//        Intent intentjadwal = new Intent(MainActivity.this, JadwalFragment.class);
+//        intentjadwal.putExtra("nis",nis);
 
 
 
