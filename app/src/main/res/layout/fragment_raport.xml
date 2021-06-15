@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/blueb"
+    android:background="@drawable/nav_raport"
     android:layout_gravity="center"
     tools:context=".ui.raport.RaportFragment">
 
@@ -67,7 +67,7 @@
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             android:layout_marginLeft="20dp"
-                            android:background="@drawable/ic_search_white_24dp" />
+                            android:background="@drawable/search_sem" />
                     </TableRow>
                 </TableLayout>
             </TableRow>
@@ -113,7 +113,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_gravity="center"
                 android:layout_marginBottom="30dp"
-                app:cardBackgroundColor="@color/white"
+                app:cardBackgroundColor="@color/blueb"
                 app:cardCornerRadius="10dp">
 
                 <TextView
