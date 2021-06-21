@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/nav_about"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.alumni.DetailAlumniFragment">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/al"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/Theme.SiasisMobile.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/alumni_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/blueb"
+            app:popupTheme="@style/Theme.SiasisMobile.PopupOverlay" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- TODO: Update blank fragment layout -->
+    <RelativeLayout
+        android:layout_below="@+id/al"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/siasis"
+            android:id="@+id/foto_alumni"
+            app:civ_border_color="@color/white"
+            android:layout_centerVertical="true"
+            app:civ_border_width="4dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp" />
+
+        <RelativeLayout
+            android:id="@+id/ly1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/foto_alumni"
+            android:textColor="@color/black"
+            android:layout_margin="20dp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+
+            <TextView
+                android:id="@+id/alumni_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:textColor="@color/black"
+                android:layout_marginEnd="200dp"
+                android:text="TextView" />
+
+            <TextView
+                android:id="@+id/alumni_angkata"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/alumni_name"
+                android:textColor="@color/black"
+                android:layout_alignEnd="@+id/alumni_name"
+                android:layout_marginTop="10dp"
+                android:text="TextView" />
+
+            <TextView
+                android:id="@+id/alumni_pekerjaan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:layout_below="@+id/alumni_angkata"
+                android:layout_alignStart="@+id/alumni_angkata"
+                android:layout_marginTop="10dp"
+                android:text="TextView" />
+
+            <TextView
+                android:id="@+id/alumni_alamat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/alumni_pekerjaan"
+                android:textColor="@color/black"
+                android:layout_alignStart="@+id/alumni_pekerjaan"
+                android:layout_marginTop="10dp"
+                android:text="TextView" />
+
+
+
+            <TextView
+                android:id="@+id/TextView03"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/alumni_alamat"
+                android:layout_alignStart="@+id/TextView04"
+                android:textColor="@color/black"
+                android:layout_alignBottom="@+id/alumni_alamat"
+                android:text="Alamat              :" />
+
+            <TextView
+                android:id="@+id/TextView04"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/alumni_pekerjaan"
+                android:layout_alignStart="@+id/TextView02"
+                android:textColor="@color/black"
+                android:layout_alignBottom="@+id/alumni_pekerjaan"
+                android:text="Pekerjaan         :" />
+
+            <TextView
+                android:id="@+id/TextView02"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/alumni_angkata"
+                android:layout_alignStart="@+id/TextView01"
+                android:textColor="@color/black"
+                android:layout_alignBottom="@+id/alumni_angkata"
+                android:text="Angkatan          :" />
+
+            <TextView
+                android:id="@+id/TextView01"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:layout_above="@+id/alumni_angkata"
+                android:layout_alignParentStart="true"
+                android:text="Nama                :" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

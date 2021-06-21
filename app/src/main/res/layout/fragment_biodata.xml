@@ -7,9 +7,477 @@
     android:background="@drawable/nav_profil"
     tools:context=".ui.biodata.BiodataFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/siasis"
+            android:id="@+id/imageView"
+            app:civ_border_color="@color/white"
+            android:layout_centerVertical="true"
+            app:civ_border_width="4dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/btnUpdate"
+            android:layout_width="150dp"
+            android:clickable="true"
+            android:layout_alignParentEnd="true"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/imageView"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            app:cardBackgroundColor="@color/blueb"
+            app:cardCornerRadius="10dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:padding="12dp"
+                android:text="Update Biodata"
+                android:textAllCaps="true"
+                android:textColor="@color/black" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/btnSave1"
+            android:layout_width="150dp"
+            android:clickable="true"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/imageView"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            app:cardBackgroundColor="@color/blueb"
+            app:cardCornerRadius="10dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:padding="12dp"
+                android:text="Simpan Biodata"
+                android:textAllCaps="true"
+                android:textColor="@color/black" />
+        </androidx.cardview.widget.CardView>
+
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:verticalScrollbarPosition="defaultPosition"
+            android:scrollbars="vertical|horizontal"
+            android:layout_below="@id/btnUpdate">
+
+            <RelativeLayout
+                android:id="@+id/ly1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:layout_margin="20dp"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+                <TableLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tbl">
+                    <TableRow>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:text="Nama\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t " />
+                        <TextView
+                            android:id="@+id/nama"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:text="TextView" />
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:text="Semester\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t " />
+                        <TextView
+                            android:id="@+id/semester"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:text="TextView" />
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:text="NIS\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t " />
+                        <TextView
+                            android:id="@+id/nis"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:text="TextView" />
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:text="NISN\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t " />
+                        <TextView
+                            android:id="@+id/nisn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:text="TextView" />
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:text="Tempat,Tanggal Lahir\t\t\t\t\t\t\t " />
+                        <TextView
+                            android:id="@+id/ttl"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:text="TextView" />
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:text="Jenis Kelamin\t\t\t\t\t\t\t\t\t\t\t\t\t " />
+                        <TextView
+                            android:id="@+id/jekel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:text="TextView" />
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:text="Agama\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t " />
+                        <TextView
+                            android:id="@+id/agama"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:text="TextView" />
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:text="Kelas\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t " />
+                        <TextView
+                            android:id="@+id/kelas"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:text="TextView" />
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:text="NoHp\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t " />
+                        <TextView
+                            android:id="@+id/nohp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:text="TextView" />
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:text="Alamat\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t " />
+                        <TextView
+                            android:id="@+id/alamat"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:text="TextView" />
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:text="Anak ke\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t " />
+                        <TextView
+                            android:id="@+id/anakke"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:text="TextView" />
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:text="Status di Keluarga \t\t\t\t\t\t\t\t\t " />
+                        <TextView
+                            android:id="@+id/statuskeluarga"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:text="TextView" />
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:text="Tahun di Terima\t\t\t\t\t\t\t\t\t\t\t " />
+                        <TextView
+                            android:id="@+id/tahunditerima"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:text="TextView" />
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:text="Semester di Terima\t\t\t\t\t\t\t\t " />
+                        <TextView
+                            android:id="@+id/semesterditerima"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:text="TextView" />
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:text="Asal Sekolah\t\t\t\t\t\t\t\t\t\t\t\t\t\t " />
+                        <TextView
+                            android:id="@+id/asalsekolah"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:text="TextView" />
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:text="Alamat Asal Sekolah\t\t\t\t\t\t\t\t " />
+                        <TextView
+                            android:id="@+id/alamatasalsekolah"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:text="TextView" />
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:text="Tahun IJAZAH Sebelumnya\t\t " />
+                        <TextView
+                            android:id="@+id/tahun_ijazah_sebelumnya"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:text="TextView" />
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:text="Nomor IJAZAH Sebelumnya\t\t " />
+                        <TextView
+                            android:id="@+id/nomor_ijazah_sebelumnya"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:text="TextView" />
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:text="Tahun SKHUN Sebelumya\t\t\t " />
+                        <TextView
+                            android:id="@+id/tahun_skhun_sebelumya"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:text="TextView" />
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:text="Nomor SKHUN Sebelumya\t\t\t " />
+                        <TextView
+                            android:id="@+id/nomor_skhun_sebelumnya"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:text="TextView" />
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:text="Nama Ayah\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t " />
+                        <TextView
+                            android:id="@+id/nama_ayah"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:text="TextView" />
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:text="Nama Ibu\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t " />
+                        <TextView
+                            android:id="@+id/nama_ibu"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:text="TextView" />
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:text="Alamat ortu\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t " />
+                        <TextView
+                            android:id="@+id/alamat_ortu"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:text="TextView" />
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:text="Pekerjaan Ayah\t\t\t\t\t\t\t\t\t\t\t\t " />
+                        <TextView
+                            android:id="@+id/pekerjaan_ayah"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:text="TextView" />
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:text="Pekerjaan Ibu\t\t\t\t\t\t\t\t\t\t\t\t\t " />
+                        <TextView
+                            android:id="@+id/pekerjaan_ibu"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:text="TextView" />
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:text="Nama Wali\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t " />
+                        <TextView
+                            android:id="@+id/nama_wali"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:text="TextView" />
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:text="Alamat Wali\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t " />
+                        <TextView
+                            android:id="@+id/alamat_wali"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:text="TextView" />
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:text="NoHp_Wali\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t " />
+                        <TextView
+                            android:id="@+id/no_hp_wali"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:text="TextView" />
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:text="Pekerjaan Wali\t\t\t\t\t\t\t\t\t\t\t\t\t\t " />
+                        <TextView
+                            android:id="@+id/pekerjaan_wali"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:text="TextView" />
+                    </TableRow>
+
+                </TableLayout>
+                <androidx.cardview.widget.CardView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_below="@+id/tbl">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:id="@+id/imgbio"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:src="@drawable/siasis"/>
+                </androidx.cardview.widget.CardView>
+
+            </RelativeLayout>
+        </ScrollView>
+    </RelativeLayout>
 </FrameLayout>

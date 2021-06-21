@@ -6,11 +6,36 @@
     android:layout_height="match_parent"
     android:background="@color/blueb"
     tools:context=".ui.home.HomeFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
+        <com.denzcoskun.imageslider.ImageSlider
+            android:layout_width="match_parent"
+            android:id="@+id/slider"
+            app:auto_cycle="true"
+            app:placeholder="@drawable/siasis"
+            app:error_image="@drawable/nav_about"
+            app:delay="0"
+            app:period="5000"
+            android:layout_margin="8dp"
+            app:corner_radius="5"
+            android:layout_height="210dp">
+        </com.denzcoskun.imageslider.ImageSlider>
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerview"
+            android:layout_below="@+id/slider"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="1dp"
+            android:layout_marginBottom="1dp"
+            android:visibility="visible"
+            android:scrollbars="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </RelativeLayout>
 </FrameLayout>
