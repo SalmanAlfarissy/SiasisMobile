@@ -33,9 +33,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class LoginActivity extends AppCompatActivity {
-    final String URL_SIGNIN = "http://192.168.56.1/adm_siasis/backend/login_siswa.php";
-    final String URL_JADWAL = "http://192.168.56.1/adm_siasis/backend/jadwal_siswa.php";
-    final String URL_SLIDER = "http://192.168.56.1/adm_siasis/backend/event_slider.php";
+    final String URL_SIGNIN = "http://192.168.43.105/adm_siasis/backend/login_siswa.php";
+    final String URL_JADWAL = "http://192.168.43.105/adm_siasis/backend/jadwal_siswa.php";
+    final String URL_SLIDER = "http://192.168.43.105/adm_siasis/backend/event_slider.php";
+    final String URL_PEMBAYARAN = "http://192.168.43.105/adm_siasis/backend/pembayaran_siswa.php";
     EditText txtuserid;
     EditText txtpasswd;
     CheckBox psshow;
@@ -43,11 +44,11 @@ public class LoginActivity extends AppCompatActivity {
     CardView btnLogin;
     String idsiswa,passwd,encrypt;
     String user,pass;
-    int cek,cek2;
-    RequestQueue requestQueue,requestQueue2,requestQueue3;
-    private StringRequest stringRequest,stringRequest2,stringRequest3;
+    int cek,cek2,cek3;
+    RequestQueue requestQueue,requestQueue2,requestQueue3,requestQueue4;
+    private StringRequest stringRequest,stringRequest2,stringRequest3,stringRequest4;
 
-    ArrayList<HashMap<String,String>> list_data,list_data2,list_data3;
+    ArrayList<HashMap<String,String>> list_data,list_data2,list_data3,list_data4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,10 +65,12 @@ public class LoginActivity extends AppCompatActivity {
         requestQueue = Volley.newRequestQueue(LoginActivity.this);
         requestQueue2 = Volley.newRequestQueue(LoginActivity.this);
         requestQueue3 = Volley.newRequestQueue(LoginActivity.this);
+        requestQueue4 = Volley.newRequestQueue(LoginActivity.this);
 
         list_data = new ArrayList<HashMap<String, String>>();
         list_data2 = new ArrayList<HashMap<String, String>>();
         list_data3 = new ArrayList<HashMap<String, String>>();
+        list_data4 = new ArrayList<HashMap<String, String>>();
 
         psshow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,6 +86,39 @@ public class LoginActivity extends AppCompatActivity {
         login();
         jadwal();
         EventSlider();
+        pembayran();
+
+    }
+
+    private void pembayran() {
+        stringRequest4 = new StringRequest(Request.Method.GET, URL_PEMBAYARAN, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONArray jsonArray = jsonObject.getJSONArray("pembayaran");
+                    for (int a = 0; a < jsonArray.length(); a++) {
+                        JSONObject json = jsonArray.getJSONObject(a);
+                        HashMap<String, String> map = new HashMap<String, String>();
+                        map.put("nis", json.getString("nis"));
+                        map.put("status", json.getString("status"));
+
+                        list_data4.add(map);
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(LoginActivity.this,error.getMessage(),Toast.LENGTH_SHORT).show();
+
+            }
+        });
+        requestQueue4.add(stringRequest4);
 
     }
 
@@ -228,9 +264,26 @@ public class LoginActivity extends AppCompatActivity {
                     user = list_data.get(i).get("nis");
                     if (idsiswa.equals(user)) {
                         cek = i;
-
+                        break;
                     }
                 }
+
+                for (int i = 0; i < list_data2.size(); i++) {
+                    user = list_data2.get(i).get("nis");
+                    if (idsiswa.equals(user)) {
+                        cek2 = i;
+                        break;
+                    }
+                }
+
+                for (int i = 0; i < list_data4.size(); i++) {
+                    user = list_data4.get(i).get("nis");
+                    if (idsiswa.equals(user)) {
+                        cek3 = i;
+                        break;
+                    }
+                }
+
                 user = list_data.get(cek).get("nis");
                 pass = list_data.get(cek).get("password");
 
@@ -279,6 +332,7 @@ public class LoginActivity extends AppCompatActivity {
                     intenmenu.putExtra("title1",list_data3.get(0).get("nama_event"));
                     intenmenu.putExtra("title2",list_data3.get(1).get("nama_event"));
                     intenmenu.putExtra("title3",list_data3.get(2).get("nama_event"));
+                    intenmenu.putExtra("status",list_data4.get(cek3).get("status"));
 
 
                     Toast.makeText(LoginActivity.this,"Login Sukses",Toast.LENGTH_LONG).show();

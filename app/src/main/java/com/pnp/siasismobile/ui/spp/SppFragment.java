@@ -12,11 +12,12 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
+import com.pnp.siasismobile.MainActivity;
 import com.pnp.siasismobile.R;
 
 
 public class SppFragment extends Fragment {
-    TextView txtbulan,txtpbm,txtpenunjang,txtno,txtjml1,txtjml2,txttotal,norek;
+    TextView txtbulan,txtpbm,txtpenunjang,txtno,txtjml1,txtjml2,txttotal,norek,statuspembayaran;
     Button btnbayar;
 
     public SppFragment() {
@@ -31,6 +32,7 @@ public class SppFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_spp, container, false);
         txtno=view.findViewById(R.id.txtno);
+        statuspembayaran=view.findViewById(R.id.status);
         txtbulan=view.findViewById(R.id.txtbln);
         txtpbm = view.findViewById(R.id.txtpbm);
         txtpenunjang=view.findViewById(R.id.txtpenunjang);
@@ -40,16 +42,35 @@ public class SppFragment extends Fragment {
         btnbayar=view.findViewById(R.id.btnbayar);
         norek = view.findViewById(R.id.norek);
 
-        btnbayar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setAction(Intent.ACTION_VIEW);
-                intent.addCategory(Intent.CATEGORY_BROWSABLE);
-                intent.setData(Uri.parse("https://wa.me/6282285032741"));
-                startActivity(intent);
-            }
-        });
+        MainActivity mainActivity = (MainActivity) getActivity();
+        Intent data = mainActivity.getIntent();
+        String status = (String)data.getSerializableExtra("status");
+        statuspembayaran.setText(status);
+        if (status.equalsIgnoreCase("Lunas")){
+            btnbayar.setEnabled(false);
+
+        }else{
+            btnbayar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String nama = (String)data.getSerializableExtra("nama_sis");
+                    String kelas = (String)data.getSerializableExtra("kelas");
+                    String nis = (String)data.getSerializableExtra("nis");
+                    String semester = (String)data.getSerializableExtra("semester");
+
+                    String pesan = "Nama : "+nama+"\nNIS : "+nis+"\nKelas : "+kelas+"\nSemester : "+semester;
+
+                    pesan.replace(" ", "%20");
+                    Intent intent = new Intent();
+                    intent.setAction(Intent.ACTION_VIEW);
+                    intent.addCategory(Intent.CATEGORY_BROWSABLE);
+                    intent.setData(Uri.parse("https://wa.me/6282285032741?text="+pesan));
+                    startActivity(intent);
+                }
+            });
+
+        }
+
         listpembayaran();
 
         // Inflate the layout for this fragment
@@ -66,6 +87,8 @@ public class SppFragment extends Fragment {
         txttotal.setText("1.220.000");
         norek.setText("NoRek(BNI) : xxx-xxx-x367-7\nNoRek(BRI) : xxx-xxx-x399-8" +
                 "\nNoRek(Nagari) : xxx-xxx-x387-7\nNoRek(Mandiri) : xxx-xxx-x357-6");
+
+
 
     }
 }

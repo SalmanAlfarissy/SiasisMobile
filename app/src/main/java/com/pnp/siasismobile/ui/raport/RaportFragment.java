@@ -45,7 +45,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class RaportFragment extends Fragment {
-    final String URL_RAPORT = "http://192.168.56.1/adm_siasis/backend/raport_siswa.php";
+    final String URL_RAPORT = "http://192.168.43.105/adm_siasis/backend/raport_siswa.php";
     private static int REQUEST_CODE = 100;
     Context context;
     String user,idsiswa,semester;
@@ -142,7 +142,7 @@ public class RaportFragment extends Fragment {
 
                 String txtconten = list_data2.get(cek).get("rapor");
                 String txtsemester = list_data2.get(cek).get("semester");
-                String urlGambar = "http://192.168.56.1/adm_siasis/guru/raport/"+txtconten;
+                String urlGambar = "http://192.168.43.105/adm_siasis/guru/raport/"+txtconten;
                 if (spsemester.getSelectedItem().equals(txtsemester)){
                     Glide.with(getActivity())
                             .load(urlGambar)

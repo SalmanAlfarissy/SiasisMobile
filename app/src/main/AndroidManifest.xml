@@ -4,6 +4,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
@@ -13,13 +14,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SiasisMobile">
-        <activity android:name=".SplashActivity"></activity>
+        <activity android:name=".LoginActivity"></activity>
         <activity android:name=".ui.alumni.DetailAlumniFragment"/>
         <activity android:name=".ui.home.DetailHomeFragment"/>
         <activity android:name=".ui.biodata.UpdateFragment"/>
         <activity android:name=".MainActivity" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".SplashActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.SiasisMobile.NoActionBar">
             <intent-filter>

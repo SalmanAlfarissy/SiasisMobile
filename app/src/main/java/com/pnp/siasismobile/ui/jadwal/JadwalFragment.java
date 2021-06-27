@@ -51,7 +51,7 @@ public class JadwalFragment extends Fragment {
         txtsemester.setText((String)intentjadwal.getSerializableExtra("semester"));
         String txtconten = (String)intentjadwal.getSerializableExtra("jadwal");
 
-        String urlGambar = "http://192.168.56.1/adm_siasis/admin/jadwal/"+txtconten;
+        String urlGambar = "http://192.168.43.105/adm_siasis/admin/jadwal/"+txtconten;
         if (txtconten.equals("")){
             imgjadwal.setImageResource(R.drawable.jadwal);
         }else {

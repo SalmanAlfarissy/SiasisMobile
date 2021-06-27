@@ -7,6 +7,8 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Environment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,15 +22,28 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
+import com.pnp.siasismobile.LoginActivity;
 import com.pnp.siasismobile.MainActivity;
 import com.pnp.siasismobile.R;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -46,6 +61,11 @@ public class BiodataFragment extends Fragment {
     CardView btnUpdate,btnSave;
     private static int REQUEST_CODE = 100;
     OutputStream outputStream;
+    int cek;
+    RequestQueue requestQueue;
+    private StringRequest stringRequest;
+    ArrayList<HashMap<String,String>> list_data;
+
     public BiodataFragment() {
         // Required empty public constructor
     }
@@ -92,39 +112,23 @@ public class BiodataFragment extends Fragment {
         btnSave = view.findViewById(R.id.btnSave1);
         imgbio = view.findViewById(R.id.imgbio);
 
+        requestQueue = Volley.newRequestQueue(getActivity());
+        list_data = new ArrayList<HashMap<String, String>>();
+
+
+
+        simpan();
+        btnDetail();
+        listdata();
+
+        // Inflate the layout for this fragment
+        return view;
+    }
+
+
+    private void btnDetail() {
         MainActivity mainActivity = (MainActivity) getActivity();
         Intent intentbio = mainActivity.getIntent();
-
-        nama.setText((String)intentbio.getSerializableExtra("nama_sis"));
-        semester.setText((String)intentbio.getSerializableExtra("semester"));
-        nis.setText((String)intentbio.getSerializableExtra("nis"));
-        nisn.setText((String)intentbio.getSerializableExtra("nisn"));
-        ttl.setText((String)intentbio.getSerializableExtra("ttl"));
-        jekel.setText((String)intentbio.getSerializableExtra("jenis_kelamin"));
-        agama.setText((String)intentbio.getSerializableExtra("agama"));
-        kelas.setText((String)intentbio.getSerializableExtra("kelas"));
-        nohp.setText((String)intentbio.getSerializableExtra("no_hp"));
-        alamat.setText((String)intentbio.getSerializableExtra("alamat"));
-        anakke.setText((String)intentbio.getSerializableExtra("anak_ke"));
-        statuskeluarga.setText((String)intentbio.getSerializableExtra("status_keluarga"));
-        tahunditerima.setText((String)intentbio.getSerializableExtra("tahun_diterima"));
-        semesterditerima.setText((String)intentbio.getSerializableExtra("semester_diterima"));
-        asalsekolah.setText((String)intentbio.getSerializableExtra("nama_sekolah_asal"));
-        alamatasalsekolah.setText((String)intentbio.getSerializableExtra("alamat_sekolah_asal"));
-
-        tahun_ijazah_sebelumnya.setText((String)intentbio.getSerializableExtra("tahun_ijazah_sebelumnya"));
-        nomor_ijazah_sebelumnya.setText((String)intentbio.getSerializableExtra("nomor_ijazah_sebelumnya"));
-        tahun_skhun_sebelumya.setText((String)intentbio.getSerializableExtra("tahun_skhun_sebelumya"));
-        nomor_skhun_sebelumnya.setText((String)intentbio.getSerializableExtra("nomor_skhun_sebelumnya"));
-        nama_ayah.setText((String)intentbio.getSerializableExtra("nama_ayah"));
-        nama_ibu.setText((String)intentbio.getSerializableExtra("nama_ibu"));
-        alamat_ortu.setText((String)intentbio.getSerializableExtra("alamat_ortu"));
-        pekerjaan_ayah.setText((String)intentbio.getSerializableExtra("pekerjaan_ayah"));
-        pekerjaan_ibu.setText((String)intentbio.getSerializableExtra("pekerjaan_ibu"));
-        nama_wali.setText((String)intentbio.getSerializableExtra("nama_wali"));
-        alamat_wali.setText((String)intentbio.getSerializableExtra("alamat_wali"));
-        no_hp_wali.setText((String)intentbio.getSerializableExtra("no_hp_wali"));
-        pekerjaan_wali.setText((String)intentbio.getSerializableExtra("pekerjaan_wali"));
 
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -161,9 +165,45 @@ public class BiodataFragment extends Fragment {
                 startActivity(intent);
             }
         });
+    }
+
+    private void listdata() {
+        MainActivity mainActivity = (MainActivity) getActivity();
+        Intent intentbio = mainActivity.getIntent();
+
+        nama.setText((String)intentbio.getSerializableExtra("nama_sis"));
+        semester.setText((String)intentbio.getSerializableExtra("semester"));
+        nis.setText((String)intentbio.getSerializableExtra("nis"));
+        nisn.setText((String)intentbio.getSerializableExtra("nisn"));
+        ttl.setText((String)intentbio.getSerializableExtra("ttl"));
+        jekel.setText((String)intentbio.getSerializableExtra("jenis_kelamin"));
+        agama.setText((String)intentbio.getSerializableExtra("agama"));
+        kelas.setText((String)intentbio.getSerializableExtra("kelas"));
+        nohp.setText((String)intentbio.getSerializableExtra("no_hp"));
+        alamat.setText((String)intentbio.getSerializableExtra("alamat"));
+        anakke.setText((String)intentbio.getSerializableExtra("anak_ke"));
+        statuskeluarga.setText((String)intentbio.getSerializableExtra("status_keluarga"));
+        tahunditerima.setText((String)intentbio.getSerializableExtra("tahun_diterima"));
+        semesterditerima.setText((String)intentbio.getSerializableExtra("semester_diterima"));
+        asalsekolah.setText((String)intentbio.getSerializableExtra("nama_sekolah_asal"));
+        alamatasalsekolah.setText((String)intentbio.getSerializableExtra("alamat_sekolah_asal"));
+
+        tahun_ijazah_sebelumnya.setText((String)intentbio.getSerializableExtra("tahun_ijazah_sebelumnya"));
+        nomor_ijazah_sebelumnya.setText((String)intentbio.getSerializableExtra("nomor_ijazah_sebelumnya"));
+        tahun_skhun_sebelumya.setText((String)intentbio.getSerializableExtra("tahun_skhun_sebelumya"));
+        nomor_skhun_sebelumnya.setText((String)intentbio.getSerializableExtra("nomor_skhun_sebelumnya"));
+        nama_ayah.setText((String)intentbio.getSerializableExtra("nama_ayah"));
+        nama_ibu.setText((String)intentbio.getSerializableExtra("nama_ibu"));
+        alamat_ortu.setText((String)intentbio.getSerializableExtra("alamat_ortu"));
+        pekerjaan_ayah.setText((String)intentbio.getSerializableExtra("pekerjaan_ayah"));
+        pekerjaan_ibu.setText((String)intentbio.getSerializableExtra("pekerjaan_ibu"));
+        nama_wali.setText((String)intentbio.getSerializableExtra("nama_wali"));
+        alamat_wali.setText((String)intentbio.getSerializableExtra("alamat_wali"));
+        no_hp_wali.setText((String)intentbio.getSerializableExtra("no_hp_wali"));
+        pekerjaan_wali.setText((String)intentbio.getSerializableExtra("pekerjaan_wali"));
 
         String txtconten = (String)intentbio.getSerializableExtra("foto_sis");
-        String urlGambar = "http://192.168.56.1/adm_siasis/admin/siswa/"+txtconten;
+        String urlGambar = "http://192.168.43.105/adm_siasis/admin/siswa/"+txtconten;
         if (txtconten.equals("")){
             imageView.setImageResource(R.drawable.user_account);
         }else {
@@ -172,15 +212,10 @@ public class BiodataFragment extends Fragment {
                     .into(imageView);
         }
         String txtbio = (String)intentbio.getSerializableExtra("cover");
-        String urlBio = "http://192.168.56.1/adm_siasis/admin/cover/"+txtbio;
+        String urlBio = "http://192.168.43.105/adm_siasis/admin/cover/"+txtbio;
         Glide.with(getActivity())
                 .load(urlBio)
                 .into(imgbio);
-
-        simpan();
-
-        // Inflate the layout for this fragment
-        return view;
     }
 
     private void simpan() {

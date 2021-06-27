@@ -43,7 +43,7 @@ public class AlumniAdapter extends RecyclerView.Adapter<AlumniAdapter.alumniView
     public void onBindViewHolder(@NonNull AlumniAdapter.alumniViewHolder holder, int position) {
         Alumni alumni = alumniList.get(position);
         Glide.with(context)
-                .load("http://192.168.56.1/adm_siasis/admin/alumni/"+alumni.getFoto())
+                .load("http://192.168.43.105/adm_siasis/admin/alumni/"+alumni.getFoto())
                 .into(holder.imgalumni);
         holder.nama_alumni.setText(alumni.getNama());
         holder.pekerjaan_alumni.setText("Pekerjaan\t: "+alumni.getPekerjaan());

@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
         txtnis.setText((String)intentlogin.getSerializableExtra("nis"));
         String txtconten = (String)intentlogin.getSerializableExtra("foto_sis");
 
-        String urlGambar = "http://192.168.56.1/adm_siasis/admin/siswa/"+txtconten;
+        String urlGambar = "http://192.168.43.105/adm_siasis/admin/siswa/"+txtconten;
         if (txtconten.equals("")){
             foto.setImageResource(R.drawable.user_account);
         }else {

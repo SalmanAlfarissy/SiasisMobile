@@ -35,7 +35,7 @@ public class DetailHomeFragment extends AppCompatActivity {
             title_event.setText(bundle.getString("nama_event"));
             isievent.setText(bundle.getString("deskripsi"));
             Glide.with(this)
-                    .load("http://192.168.56.1/adm_siasis/admin/event/"+bundle.getString("gambar_event"))
+                    .load("http://192.168.43.105/adm_siasis/admin/event/"+bundle.getString("gambar_event"))
                     .into(imgevent);
         }
 

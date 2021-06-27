@@ -33,7 +33,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class HomeFragment extends Fragment {
-    final String URL_EVENT = "http://192.168.56.1/adm_siasis/backend/event_siswa.php";
+    final String URL_EVENT = "http://192.168.43.105/adm_siasis/backend/event_siswa.php";
     RecyclerView recyclerview;
     List<Event> eventList;
     ImageSlider imageSlider;
@@ -58,9 +58,9 @@ public class HomeFragment extends Fragment {
         Intent intentcontent = mainActivity.getIntent();
 
         List<SlideModel> slideModels = new ArrayList<>();
-        slideModels.add(new SlideModel("http://192.168.56.1/adm_siasis/admin/event/"+(String)intentcontent.getSerializableExtra("content1"),""+(String)intentcontent.getSerializableExtra("title1")));
-        slideModels.add(new SlideModel("http://192.168.56.1/adm_siasis/admin/event/"+(String)intentcontent.getSerializableExtra("content2"),""+(String)intentcontent.getSerializableExtra("title2")));
-        slideModels.add(new SlideModel("http://192.168.56.1/adm_siasis/admin/event/"+(String)intentcontent.getSerializableExtra("content3"),""+(String)intentcontent.getSerializableExtra("title3")));
+        slideModels.add(new SlideModel("http://192.168.43.105/adm_siasis/admin/event/"+(String)intentcontent.getSerializableExtra("content1"),""+(String)intentcontent.getSerializableExtra("title1")));
+        slideModels.add(new SlideModel("http://192.168.43.105/adm_siasis/admin/event/"+(String)intentcontent.getSerializableExtra("content2"),""+(String)intentcontent.getSerializableExtra("title2")));
+        slideModels.add(new SlideModel("http://192.168.43.105/adm_siasis/admin/event/"+(String)intentcontent.getSerializableExtra("content3"),""+(String)intentcontent.getSerializableExtra("title3")));
         imageSlider.setImageList(slideModels,true);
         // Inflate the layout for this fragment
         return view;

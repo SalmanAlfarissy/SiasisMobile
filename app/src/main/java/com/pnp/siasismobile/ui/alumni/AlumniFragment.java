@@ -27,7 +27,7 @@ import java.util.List;
 
 
 public class AlumniFragment extends Fragment {
-    final String URL_ALUMNI = "http://192.168.56.1/adm_siasis/backend/alumni_siswa.php";
+    final String URL_ALUMNI = "http://192.168.43.105/adm_siasis/backend/alumni_siswa.php";
     RecyclerView rvalumni;
     List<Alumni> alumniList;
 

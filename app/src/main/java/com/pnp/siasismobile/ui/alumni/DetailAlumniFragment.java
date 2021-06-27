@@ -41,7 +41,7 @@ public class DetailAlumniFragment extends AppCompatActivity {
             alumni_pekerjaan.setText(bundle.getString("pekerjaan"));
             alumni_alamat.setText(bundle.getString("alamat"));
             Glide.with(this)
-                    .load("http://192.168.56.1/adm_siasis/admin/alumni/"+bundle.getString("foto"))
+                    .load("http://192.168.43.105/adm_siasis/admin/alumni/"+bundle.getString("foto"))
                     .into(foto_alumni);
         }
 

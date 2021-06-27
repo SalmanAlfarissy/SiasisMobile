@@ -98,7 +98,7 @@ public class UpdateFragment extends AppCompatActivity {
         edtno_hp_wali = findViewById(R.id.edtno_hp_wali);
         edtpekerjaan_wali = findViewById(R.id.edtpekerjaan_wali);
         rdgjekel = findViewById(R.id.rdgjekel);
-        dateFormatter = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+        dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
         requestQueue = Volley.newRequestQueue(UpdateFragment.this);
         progressDialog = new ProgressDialog(UpdateFragment.this);
         list_data = new ArrayList<HashMap<String, String>>();
@@ -123,7 +123,7 @@ public class UpdateFragment extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Jekel();
-                final String URL_UPDATE= "http://192.168.56.1/adm_siasis/backend/update_siswa.php";
+                final String URL_UPDATE= "http://192.168.43.105/adm_siasis/backend/update_siswa.php";
                 progressDialog.setMessage("silahkan tunggu,input data ke server sedang berlangsung");
                 progressDialog.show();
 
