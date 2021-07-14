@@ -4,21 +4,16 @@ import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.cardview.widget.CardView;
-import androidx.fragment.app.Fragment;
-
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -123,7 +118,7 @@ public class UpdateFragment extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Jekel();
-                final String URL_UPDATE= "http://192.168.43.105/adm_siasis/backend/update_siswa.php";
+                final String URL_UPDATE= "https://siasis-mobile.000webhostapp.com/update_siswa.php";
                 progressDialog.setMessage("silahkan tunggu,input data ke server sedang berlangsung");
                 progressDialog.show();
 

@@ -33,10 +33,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class LoginActivity extends AppCompatActivity {
-    final String URL_SIGNIN = "http://192.168.43.105/adm_siasis/backend/login_siswa.php";
-    final String URL_JADWAL = "http://192.168.43.105/adm_siasis/backend/jadwal_siswa.php";
-    final String URL_SLIDER = "http://192.168.43.105/adm_siasis/backend/event_slider.php";
-    final String URL_PEMBAYARAN = "http://192.168.43.105/adm_siasis/backend/pembayaran_siswa.php";
+    final String URL_SIGNIN = "https://siasis-mobile.000webhostapp.com/login_siswa.php";
     EditText txtuserid;
     EditText txtpasswd;
     CheckBox psshow;
@@ -44,11 +41,11 @@ public class LoginActivity extends AppCompatActivity {
     CardView btnLogin;
     String idsiswa,passwd,encrypt;
     String user,pass;
-    int cek,cek2,cek3;
-    RequestQueue requestQueue,requestQueue2,requestQueue3,requestQueue4;
-    private StringRequest stringRequest,stringRequest2,stringRequest3,stringRequest4;
+    int cek;
+    RequestQueue requestQueue;
+    private StringRequest stringRequest;
 
-    ArrayList<HashMap<String,String>> list_data,list_data2,list_data3,list_data4;
+    ArrayList<HashMap<String,String>> list_data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,14 +60,8 @@ public class LoginActivity extends AppCompatActivity {
 
         btnLogin =findViewById(R.id.btnlogin);
         requestQueue = Volley.newRequestQueue(LoginActivity.this);
-        requestQueue2 = Volley.newRequestQueue(LoginActivity.this);
-        requestQueue3 = Volley.newRequestQueue(LoginActivity.this);
-        requestQueue4 = Volley.newRequestQueue(LoginActivity.this);
 
         list_data = new ArrayList<HashMap<String, String>>();
-        list_data2 = new ArrayList<HashMap<String, String>>();
-        list_data3 = new ArrayList<HashMap<String, String>>();
-        list_data4 = new ArrayList<HashMap<String, String>>();
 
         psshow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,111 +75,10 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         login();
-        jadwal();
-        EventSlider();
-        pembayran();
+
 
     }
 
-    private void pembayran() {
-        stringRequest4 = new StringRequest(Request.Method.GET, URL_PEMBAYARAN, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try {
-                    JSONObject jsonObject = new JSONObject(response);
-                    JSONArray jsonArray = jsonObject.getJSONArray("pembayaran");
-                    for (int a = 0; a < jsonArray.length(); a++) {
-                        JSONObject json = jsonArray.getJSONObject(a);
-                        HashMap<String, String> map = new HashMap<String, String>();
-                        map.put("nis", json.getString("nis"));
-                        map.put("status", json.getString("status"));
-
-                        list_data4.add(map);
-                    }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(LoginActivity.this,error.getMessage(),Toast.LENGTH_SHORT).show();
-
-            }
-        });
-        requestQueue4.add(stringRequest4);
-
-    }
-
-    private void EventSlider() {
-        stringRequest3 = new StringRequest(Request.Method.GET, URL_SLIDER, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try {
-                    JSONObject jsonObject = new JSONObject(response);
-                    JSONArray jsonArray = jsonObject.getJSONArray("slider");
-                    for (int a = 0; a < jsonArray.length(); a++) {
-                        JSONObject json = jsonArray.getJSONObject(a);
-                        HashMap<String, String> map = new HashMap<String, String>();
-                        map.put("id_info", json.getString("id_info"));
-                        map.put("id_adm", json.getString("id_adm"));
-                        map.put("nama_event", json.getString("nama_event"));
-                        map.put("gambar_event", json.getString("gambar_event"));
-                        map.put("tgl_post", json.getString("tgl_post"));
-                        map.put("deskripsi", json.getString("deskripsi"));
-                        list_data3.add(map);
-                    }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(LoginActivity.this,error.getMessage(),Toast.LENGTH_SHORT).show();
-
-            }
-        });
-        requestQueue3.add(stringRequest3);
-    }
-
-    private void jadwal() {
-        stringRequest2 = new StringRequest(Request.Method.GET, URL_JADWAL, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try {
-                    JSONObject jsonObject = new JSONObject(response);
-                    JSONArray jsonArray = jsonObject.getJSONArray("kelas");
-                    for (int a = 0; a < jsonArray.length(); a++) {
-                        JSONObject json = jsonArray.getJSONObject(a);
-                        HashMap<String, String> map = new HashMap<String, String>();
-                        map.put("nama_sis", json.getString("nama_sis"));
-                        map.put("nis", json.getString("nis"));
-                        map.put("kelas", json.getString("kelas"));
-                        map.put("semester", json.getString("semester"));
-                        map.put("jadwal", json.getString("jadwal"));
-                        list_data2.add(map);
-                    }
-
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(LoginActivity.this,error.getMessage(),Toast.LENGTH_SHORT).show();
-
-            }
-        });
-        requestQueue2.add(stringRequest2);
-    }
 
     private void login() {
         stringRequest = new StringRequest(Request.Method.GET, URL_SIGNIN, new Response.Listener<String>() {
@@ -268,22 +158,6 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 }
 
-                for (int i = 0; i < list_data2.size(); i++) {
-                    user = list_data2.get(i).get("nis");
-                    if (idsiswa.equals(user)) {
-                        cek2 = i;
-                        break;
-                    }
-                }
-
-                for (int i = 0; i < list_data4.size(); i++) {
-                    user = list_data4.get(i).get("nis");
-                    if (idsiswa.equals(user)) {
-                        cek3 = i;
-                        break;
-                    }
-                }
-
                 user = list_data.get(cek).get("nis");
                 pass = list_data.get(cek).get("password");
 
@@ -325,15 +199,6 @@ public class LoginActivity extends AppCompatActivity {
                     intenmenu.putExtra("no_hp_wali",list_data.get(cek).get("no_hp_wali"));
                     intenmenu.putExtra("pekerjaan_wali",list_data.get(cek).get("pekerjaan_wali"));
                     intenmenu.putExtra("cover",list_data.get(cek).get("cover"));
-                    intenmenu.putExtra("jadwal",list_data2.get(cek2).get("jadwal"));
-                    intenmenu.putExtra("content1",list_data3.get(0).get("gambar_event"));
-                    intenmenu.putExtra("content2",list_data3.get(1).get("gambar_event"));
-                    intenmenu.putExtra("content3",list_data3.get(2).get("gambar_event"));
-                    intenmenu.putExtra("title1",list_data3.get(0).get("nama_event"));
-                    intenmenu.putExtra("title2",list_data3.get(1).get("nama_event"));
-                    intenmenu.putExtra("title3",list_data3.get(2).get("nama_event"));
-                    intenmenu.putExtra("status",list_data4.get(cek3).get("status"));
-
 
                     Toast.makeText(LoginActivity.this,"Login Sukses",Toast.LENGTH_LONG).show();
                     startActivity(intenmenu);

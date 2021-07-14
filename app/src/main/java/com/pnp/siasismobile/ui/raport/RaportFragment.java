@@ -45,7 +45,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class RaportFragment extends Fragment {
-    final String URL_RAPORT = "http://192.168.43.105/adm_siasis/backend/raport_siswa.php";
+    final String URL_RAPORT = "https://siasis-mobile.000webhostapp.com/raport_siswa.php";
     private static int REQUEST_CODE = 100;
     Context context;
     String user,idsiswa,semester;
@@ -104,6 +104,12 @@ public class RaportFragment extends Fragment {
                         map.put("rapor", json.getString("rapor"));
                         map.put("semester", json.getString("semester"));
                         list_data.add(map);
+
+                        if  (idsiswa.equals(list_data.get(a).get("nis"))){
+                            map.put("rapor",list_data.get(a).get("rapor"));
+                            map.put("semester",list_data.get(a).get("semester"));
+                            list_data2.add(map);
+                        }
                     }
 
                 } catch (JSONException e) {
@@ -123,26 +129,18 @@ public class RaportFragment extends Fragment {
         btnsearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                for (int i = 0; i < list_data.size(); i++) {
-                    user = list_data.get(i).get("nis");
-                    if (idsiswa.equals(user)) {
-                        HashMap<String, String> map = new HashMap<String, String>();
-                        map.put("nis",list_data.get(i).get("nis"));
-                        map.put("rapor",list_data.get(i).get("rapor"));
-                        map.put("semester",list_data.get(i).get("semester"));
-                        list_data2.add(map);
-                    }
-                }
+
                 for (int s = 0; s < list_data2.size(); s++){
                     semester = list_data2.get(s).get("semester");
                     if (spsemester.getSelectedItem().equals(semester)){
                         cek = s;
+                        break;
                     }
                 }
 
                 String txtconten = list_data2.get(cek).get("rapor");
                 String txtsemester = list_data2.get(cek).get("semester");
-                String urlGambar = "http://192.168.43.105/adm_siasis/guru/raport/"+txtconten;
+                String urlGambar = "https://siasis-mobile.000webhostapp.com/guru/raport/"+txtconten;
                 if (spsemester.getSelectedItem().equals(txtsemester)){
                     Glide.with(getActivity())
                             .load(urlGambar)
@@ -150,7 +148,6 @@ public class RaportFragment extends Fragment {
                 }else {
                     imgraport.setImageResource(R.drawable.siasis);
                 }
-
 
             }
         });

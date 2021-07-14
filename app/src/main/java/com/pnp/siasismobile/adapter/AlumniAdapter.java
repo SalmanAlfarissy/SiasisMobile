@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
-import androidx.core.widget.ContentLoadingProgressBar;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -43,7 +42,7 @@ public class AlumniAdapter extends RecyclerView.Adapter<AlumniAdapter.alumniView
     public void onBindViewHolder(@NonNull AlumniAdapter.alumniViewHolder holder, int position) {
         Alumni alumni = alumniList.get(position);
         Glide.with(context)
-                .load("http://192.168.43.105/adm_siasis/admin/alumni/"+alumni.getFoto())
+                .load("https://siasis-mobile.000webhostapp.com/admin/alumni/"+alumni.getFoto())
                 .into(holder.imgalumni);
         holder.nama_alumni.setText(alumni.getNama());
         holder.pekerjaan_alumni.setText("Pekerjaan\t: "+alumni.getPekerjaan());

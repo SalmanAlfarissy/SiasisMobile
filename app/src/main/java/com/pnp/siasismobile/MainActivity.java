@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,8 +16,6 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.navigation.NavigationView;
-import com.mikepenz.materialdrawer.Drawer;
-import com.pnp.siasismobile.ui.jadwal.JadwalFragment;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -70,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         txtnis.setText((String)intentlogin.getSerializableExtra("nis"));
         String txtconten = (String)intentlogin.getSerializableExtra("foto_sis");
 
-        String urlGambar = "http://192.168.43.105/adm_siasis/admin/siswa/"+txtconten;
+        String urlGambar = "https://siasis-mobile.000webhostapp.com/admin/siswa/"+txtconten;
         if (txtconten.equals("")){
             foto.setImageResource(R.drawable.user_account);
         }else {

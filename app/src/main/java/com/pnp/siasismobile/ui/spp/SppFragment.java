@@ -9,16 +9,38 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.pnp.siasismobile.MainActivity;
 import com.pnp.siasismobile.R;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 
 public class SppFragment extends Fragment {
     TextView txtbulan,txtpbm,txtpenunjang,txtno,txtjml1,txtjml2,txttotal,norek,statuspembayaran;
     Button btnbayar;
+    RequestQueue requestQueue;
+    String nis;
+    MainActivity mainActivity;
+    Intent data;
+    private StringRequest stringRequest;
+    ArrayList<HashMap<String,String>> list_data;
+
+    final String URL_PEMBAYARAN = "https://siasis-mobile.000webhostapp.com/pembayaran_siswa.php";
 
     public SppFragment() {
         // Required empty public constructor
@@ -42,39 +64,82 @@ public class SppFragment extends Fragment {
         btnbayar=view.findViewById(R.id.btnbayar);
         norek = view.findViewById(R.id.norek);
 
-        MainActivity mainActivity = (MainActivity) getActivity();
-        Intent data = mainActivity.getIntent();
-        String status = (String)data.getSerializableExtra("status");
-        statuspembayaran.setText(status);
-        if (status.equalsIgnoreCase("Lunas")){
-            btnbayar.setEnabled(false);
+        requestQueue = Volley.newRequestQueue(getActivity());
+        list_data = new ArrayList<HashMap<String, String>>();
 
-        }else{
-            btnbayar.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    String nama = (String)data.getSerializableExtra("nama_sis");
-                    String kelas = (String)data.getSerializableExtra("kelas");
-                    String nis = (String)data.getSerializableExtra("nis");
-                    String semester = (String)data.getSerializableExtra("semester");
+        mainActivity = (MainActivity) getActivity();
+        data = mainActivity.getIntent();
+        nis = (String)data.getSerializableExtra("nis");
 
-                    String pesan = "Nama : "+nama+"\nNIS : "+nis+"\nKelas : "+kelas+"\nSemester : "+semester;
-
-                    pesan.replace(" ", "%20");
-                    Intent intent = new Intent();
-                    intent.setAction(Intent.ACTION_VIEW);
-                    intent.addCategory(Intent.CATEGORY_BROWSABLE);
-                    intent.setData(Uri.parse("https://wa.me/6282285032741?text="+pesan));
-                    startActivity(intent);
-                }
-            });
-
-        }
-
+        status();
         listpembayaran();
 
         // Inflate the layout for this fragment
         return view;
+    }
+
+    private void status() {
+        stringRequest = new StringRequest(Request.Method.GET, URL_PEMBAYARAN, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONArray jsonArray = jsonObject.getJSONArray("pembayaran");
+                    for (int a = 0; a < jsonArray.length(); a++) {
+                        JSONObject json = jsonArray.getJSONObject(a);
+                        HashMap<String, String> map = new HashMap<String, String>();
+                        map.put("nis", json.getString("nis"));
+                        map.put("status", json.getString("status"));
+
+                        list_data.add(map);
+
+                        if (list_data.get(a).get("nis").equals(nis)){
+                            statuspembayaran.setText(list_data.get(a).get("status"));
+                            if (list_data.get(a).get("status").equalsIgnoreCase("Lunas")){
+                                btnbayar.setEnabled(false);
+
+                            }else{
+                                bayar();
+                            }
+
+                            break;
+
+                        }
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getActivity(),error.getMessage(),Toast.LENGTH_SHORT).show();
+
+            }
+        });
+        requestQueue.add(stringRequest);
+    }
+
+    private void bayar() {
+        btnbayar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String nama = (String)data.getSerializableExtra("nama_sis");
+                String kelas = (String)data.getSerializableExtra("kelas");
+                String semester = (String)data.getSerializableExtra("semester");
+
+                String pesan = "Nama : "+nama+"\nNIS : "+nis+"\nKelas : "+kelas+"\nSemester : "+semester;
+
+                pesan.replace(" ", "%20");
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_VIEW);
+                intent.addCategory(Intent.CATEGORY_BROWSABLE);
+                intent.setData(Uri.parse("https://wa.me/6282285032741?text="+pesan));
+                startActivity(intent);
+            }
+        });
     }
 
     private void listpembayaran() {

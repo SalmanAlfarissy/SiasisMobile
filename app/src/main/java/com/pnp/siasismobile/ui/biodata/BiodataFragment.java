@@ -7,8 +7,6 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Environment;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,20 +20,12 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
-import com.pnp.siasismobile.LoginActivity;
 import com.pnp.siasismobile.MainActivity;
 import com.pnp.siasismobile.R;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -203,7 +193,7 @@ public class BiodataFragment extends Fragment {
         pekerjaan_wali.setText((String)intentbio.getSerializableExtra("pekerjaan_wali"));
 
         String txtconten = (String)intentbio.getSerializableExtra("foto_sis");
-        String urlGambar = "http://192.168.43.105/adm_siasis/admin/siswa/"+txtconten;
+        String urlGambar = "https://siasis-mobile.000webhostapp.com/admin/siswa/"+txtconten;
         if (txtconten.equals("")){
             imageView.setImageResource(R.drawable.user_account);
         }else {
@@ -212,7 +202,7 @@ public class BiodataFragment extends Fragment {
                     .into(imageView);
         }
         String txtbio = (String)intentbio.getSerializableExtra("cover");
-        String urlBio = "http://192.168.43.105/adm_siasis/admin/cover/"+txtbio;
+        String urlBio = "https://siasis-mobile.000webhostapp.com/admin/cover/"+txtbio;
         Glide.with(getActivity())
                 .load(urlBio)
                 .into(imgbio);
